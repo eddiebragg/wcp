@@ -10,12 +10,9 @@ router.register(r'user-profiles', views.UserProfileViewSet)
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^api/', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api-token-auth/', 'rest_framework.authtoken.views.obtain_auth_token'),
-    # Examples:
-    # url(r'^$', 'wcpredictor.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
-    url(r'^admin/', include(admin.site.urls)),
-)
+                       url(r'^api/', include(router.urls)),
+                       url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+                       url(r'^api-token-auth/', 'rest_framework.authtoken.views.obtain_auth_token'),
+                       url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
+                       url(r'^admin/', include(admin.site.urls)),
+                       )
