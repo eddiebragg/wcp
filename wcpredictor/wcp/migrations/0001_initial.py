@@ -29,6 +29,20 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='GamePrediction',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, verbose_name='created', editable=False)),
+                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, verbose_name='modified', editable=False)),
+                ('score_one', models.IntegerField(default=0)),
+                ('score_two', models.IntegerField(default=0)),
+                ('game', models.ForeignKey(related_name='game', to='wcp.Game')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
             name='Group',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -71,6 +85,9 @@ class Migration(migrations.Migration):
                 ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, verbose_name='created', editable=False)),
                 ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, verbose_name='modified', editable=False)),
                 ('name', models.CharField(max_length=100)),
+                ('points_score', models.IntegerField(default=1)),
+                ('points_result', models.IntegerField(default=1)),
+                ('points_bonus', models.IntegerField(default=1)),
             ],
             options={
                 'abstract': False,
@@ -99,6 +116,11 @@ class Migration(migrations.Migration):
             model_name='group',
             name='tournament',
             field=models.ForeignKey(related_name='tournament_groups', to='wcp.Tournament'),
+        ),
+        migrations.AddField(
+            model_name='gameprediction',
+            name='user',
+            field=models.ForeignKey(related_name='game_predictions', to='wcp.UserProfile'),
         ),
         migrations.AddField(
             model_name='game',

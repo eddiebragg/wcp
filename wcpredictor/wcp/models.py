@@ -32,6 +32,9 @@ class Team(TimeStampedModel):
 
 class Tournament(TimeStampedModel):
     name = models.CharField(max_length=100)
+    points_score = models.IntegerField(default=1)
+    points_result = models.IntegerField(default=1)
+    points_bonus = models.IntegerField(default=1)
 
     def __unicode__(self):
         return self.name
@@ -57,3 +60,10 @@ class Game(TimeStampedModel):
     group = models.ForeignKey(Group)
     team_one_score = models.IntegerField(default=0)
     team_two_score = models.IntegerField(default=0)
+
+
+class GamePrediction(TimeStampedModel):
+    game = models.ForeignKey(Game, related_name="game")
+    user = models.ForeignKey(UserProfile, related_name="game_predictions")
+    score_one = models.IntegerField(default=0)
+    score_two = models.IntegerField(default=0)
